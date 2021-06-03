@@ -25,18 +25,18 @@ const jsLoaders = () => {
   return loaders
 }
 module.exports = {
-  context: path.resolve(__dirname, './src'),
+  context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: ['@babel/polyfill', './index.js'],
   output: {
     filename: filename('js'),
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
     extensions: ['.js'],
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@core': path.resolve(__dirname, './src/core'),
+      '@': path.resolve(__dirname, 'src'),
+      '@core': path.resolve(__dirname, 'src/core'),
     },
   },
   devtool: isDev ? 'source-map' : false,
@@ -70,12 +70,15 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
+          MiniCssExtractPlugin.loader,
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {},
+            loader: 'css-loader',
+            options: {
+            //  importLoaders: 1,
+            },
 
           },
-          'css-loader',
+          // 'css-loader',
           'sass-loader',
 
         ],
